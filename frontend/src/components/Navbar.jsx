@@ -6,7 +6,7 @@ import { primary, primaryLight, secondaryDark, secondaryLight, tertiary, tertiar
 const Container =  styled.div`
   display: flex;
   padding: 0px 16px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: ${primaryLight};
 `
@@ -27,8 +27,8 @@ const C = styled.span`
   line-height: normal;
 `
 const ProfileContainer = styled.div`
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
   margin: 12px 0 12px 2px;
@@ -49,7 +49,7 @@ const Navbar = () => {
       <LogoText>
         {LOGO.map((char, index) => (
           <C key={index}
-            color={(index==0||index==2) ? secondaryDark : tertiary}
+            color={index%2==0 ? secondaryLight : tertiaryLight}
           >{char}</C>
         ))}
       </LogoText>

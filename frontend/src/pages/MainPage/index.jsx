@@ -3,7 +3,7 @@ import ImageSlider from '../../components/ImageSlider'
 import CardItem from './Components/CardItem';
 import styled from 'styled-components';
 import data from '../../testData.json';
-import { primaryLight, secondaryLight } from '../../color';
+import { primary, primaryLight, secondaryDark, secondaryLight } from '../../color';
 
 //전체
 const GameListContainer = styled.div`
@@ -15,17 +15,16 @@ const GameListContainer = styled.div`
 `
 //섹션 제목
 const MenuText = styled.span`
-  color: #000;
-  font-family: 'Jua';
+  color: ${primary};
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: bold;
   line-height: normal;
 `
 const Line = styled.div`
   width: 100%;
   height: 2px;
-  background: rgba(0, 0, 0, 0.20);
+  background: rgba(0,0,0,0.2);
 `
 //카테고리 영역
 const Bottom = styled.div`
@@ -36,20 +35,33 @@ const Bottom = styled.div`
 const CategoryList = styled.div`
   width: auto;
   height 100%;
-  padding: 48px 0px;
-  margin-left: 32px;
-
+  padding: 32px 0px;
+  
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 8px;
+  gap: 1px;
 `
 const CategoryItem = styled.span`
-  color: #000;
+  background-color: ${props => props.picked===1 ? secondaryLight : primaryLight};
+  color: ${props => props.picked===1 ? 'white' : primary};
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 1rem 0 0 1rem;
+
+  transition: background-color 0.3s;
+  &:hover{
+    background-color: ${secondaryDark};
+    color: white;
+    cursor: pointer;
+  }
+`
+const CategoryItemText = styled.span `
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: normal;
   white-space: nowrap;
+  pointer-events: none;
 `
 // 카드 영역
 const CardList = styled.div`
@@ -65,17 +77,16 @@ const CardList = styled.div`
 `
 const MainPage = () => {
   const [products, setProducts] = useState([]);
-  // const tags = ["MMORPG", "AOS", "FPS", "퍼즐", "리듬", "액션", "어드벤쳐"];
   const [tags, setTags] = useState([]); 
+  const [filter, setFilter] = useState([]);
   
   //게임 목록(products)을 세팅하는 함수
   function getProducts(data){
     setProducts(data.products);
   }
-
   //카테고리(tags)를 세팅하는 함수
   function getTags(data){
-    const temp = []
+    const temp = [];
     data.products.forEach((item) => {
       item.tag.forEach((tag) => {
         if(!temp.includes(tag)){
@@ -84,14 +95,25 @@ const MainPage = () => {
       })
     })
     temp.sort();
-    setTags(temp);
+    setTags([["전체보기"],...temp]);
   }
-
+  //필터 세팅하는 함수
+  function getFilter(){
+    const temp = Array(tags.length).fill(0)
+    temp[1]=1;
+    temp[5]=1;
+    setFilter(temp);
+  }
+  function onClickFilter(){
+    //TODO: 전체보기(0번) 누르면 나머진 초기화
+    //카테고리 필터링 클릭 구현하기
+  }
 
   useEffect(()=>{
     if(data){
       getProducts(data);
       getTags(data);
+      getFilter();
     }
     // fetch('../../testData.json')
     //   .then((response) => response.json())
@@ -104,23 +126,24 @@ const MainPage = () => {
 
   return (
     <>
-        {/* 이미지 */ }
+        {/* 이미지 슬라이더 파트 */ }
         <ImageSlider/>
-        {/* Game */}
+        {/* Game 목록 파트*/}
         <GameListContainer>
-          {/* 카테고리(태그) */}
           <div>
             <MenuText>GAME LIST</MenuText>
             <Line/>
           </div>
           <Bottom>
             <CategoryList>
-              {tags.map(tag => 
-                <CategoryItem key={tag}>{tag}</CategoryItem>
-              )}
+              {tags.map((tag, index) => (
+                <CategoryItem key={tag} picked={filter[index]}>
+                  <CategoryItemText>{tag}</CategoryItemText>
+                </CategoryItem>
+              ))}
             </CategoryList>
             <CardList>
-              {data.products.map((product, index) => (
+              {products.map((product, index) => (
                 <CardItem key={index} 
                   id={product.id}
                   title={product.title}

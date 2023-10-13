@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import {GoDotFill} from 'react-icons/go'
-import { primary, secondaryLight} from '../color';
+import { primary, primaryLight, secondaryDark, secondaryLight} from '../color';
+import data from '../testData.json';
 
 
 const SliderContainer = styled.div`
@@ -39,6 +40,18 @@ const Darker = styled.div`
   z-index: 0;
 `
 
+const BannerText = styled.div`
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: bold;
+  color: rgba(0,0,0,0.7);
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 1rem 0 0 1rem;
+  padding: 0 0.5rem;
+  position: absolute;
+  bottom: 16px;
+  right: 0;
+`
 const StyledImage = styled.img`
   width: auto;
   height: 100%;
@@ -58,18 +71,15 @@ const StyledButton = styled.button`
   flex-direction: horiziontal;
   align-items: center;
   background-color: #ffffff00;
-  color: ${props => props.cur==1? 'white' : primary};
+  color: ${props => props.cur==1? secondaryDark : 'white'};
   border: none;
   :hover{
-    color: ${secondaryLight};
+    color: ${secondaryDark};
   } 
   
 `
 const ImageSlider = () => {
-  const items = [
-    "/img/image1.png", "/img/image2.png"
-  ];
-
+  const items = data.banners;
   const [curIndex, setCurIndex] = useState(0)
 
   useEffect(()=>{
@@ -96,14 +106,14 @@ const ImageSlider = () => {
 
   return (
     <SliderContainer>
-      <BackImg src={items[curIndex]} alt='배경'/>
+      <BackImg src={items[curIndex].image} alt='배경'/>
       <Darker/>
       <Container className='image-slider'> 
-        {items.map((image,index) =>
+        {items.map((item,index) =>
           index==curIndex? 
-          <StyledImage key={image}
-            src={image}
-            alt={image}
+          <StyledImage key={item.image}
+            src={item.image}
+            alt={item.image}
           />:''
         )}
         <ButtonContainer>
@@ -115,6 +125,7 @@ const ImageSlider = () => {
             ))}
           <StyledButton onClick={onRight}><FaArrowAltCircleRight size={32}/></StyledButton>
         </ButtonContainer>
+        <BannerText>{items[curIndex].text}</BannerText>
       </Container>
     </SliderContainer>
   )
