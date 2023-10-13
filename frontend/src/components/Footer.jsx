@@ -1,9 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import { primaryLight } from '../color'
 
-const Text = styled.p`
+const Text = styled.span`
+  display: block;
+  width: 100;
   text-align: end;
-  margin: 32px;
+  padding: 4px 16px;
+  background-color: ${primaryLight};
 `
 
 const Footer = () => {

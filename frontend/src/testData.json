@@ -1,0 +1,84 @@
+{
+    "users":[
+        {
+            "id": 1,
+            "name": "CJ",
+            "password": 1234
+        }
+    ],
+
+    "products":[
+        {
+            "id": 1,
+            "title": "사이퍼즈",
+            "tag": ["AOS", "액션"],
+            "image" : "/img/사이퍼즈.jpg"
+        },
+        {
+            "id": 2,
+            "title": "Genshin Impact",
+            "tag": ["어드벤쳐", "RPG"],
+            "image": "/img/원신.jpg"
+        },
+        {
+            "id": 3,
+            "title": "Ori and the Will of the Wisps",
+            "tag": ["액션", "어드벤쳐"],
+            "image":"/img/오리.jpg"
+        },
+        {
+            "id": 4,
+            "title": "It Takes Two",
+            "tag": ["퍼즐", "액션", "협동"],
+            "image":"/img/잇테익스투.jpg"
+        },
+        {
+            "id": 5,
+            "title": "이카루스",
+            "tag": ["RPG"],
+            "image":"/img/이카루스.jpg"
+        },
+        {
+            "id": 6,
+            "title": "테라",
+            "tag": ["RPG"],
+            "image":"/img/테라.jpg"
+        },
+        {
+            "id": 7,
+            "title": "Rainbow Six Siege",
+            "tag": ["FPS"],
+            "image":"/img/레식.jpg"
+        },
+        {
+            "id": 8,
+            "title": "이터널 리턴",
+            "tag": ["AOS", "배틀로얄"],
+            "image":"/img/이터널리턴.jpg"
+        },
+        {
+            "id": 9,
+            "title": "Deemo",
+            "tag": ["리듬"],
+            "image":"/img/디모.jpg"
+        },
+        {
+            "id": 10,
+            "title": "메이플스토리",
+            "tag": ["RPG"],
+            "image":"/img/메이플.jpg"
+        },
+        {
+            "id": 11,
+            "title": "크레이지 아케이드",
+            "tag": ["액션", "전략"],
+            "image":"/img/크아.jpg"
+        },
+        {
+            "id": 12,
+            "title": "카트라이더",
+            "tag": ["레이싱"],
+            "image":"/img/카트.jpg"
+        }
+    ]
+}

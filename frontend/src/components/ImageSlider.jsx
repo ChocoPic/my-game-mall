@@ -58,7 +58,7 @@ const StyledButton = styled.button`
   flex-direction: horiziontal;
   align-items: center;
   background-color: #ffffff00;
-  color: ${props => props.cur? secondaryLight : primary};
+  color: ${props => props.cur==1? 'white' : primary};
   border: none;
   :hover{
     color: ${secondaryLight};
@@ -110,8 +110,8 @@ const ImageSlider = () => {
           <StyledButton onClick={onLeft}><FaArrowAltCircleLeft size={32}/></StyledButton>
           {Array.from({length:items.length},(_,index) => (
             index==curIndex?
-            <StyledButton cur key={index} w={10} h={10} onClick={()=>setCurIndex(index)}><GoDotFill/></StyledButton>
-            :<StyledButton key={index} w={10} h={10} onClick={()=>setCurIndex(index)}><GoDotFill/></StyledButton>
+            <StyledButton cur={1} key={index} w={10} h={10} onClick={()=>setCurIndex(index)}><GoDotFill/></StyledButton>
+            :<StyledButton cur={0} key={index} w={10} h={10} onClick={()=>setCurIndex(index)}><GoDotFill/></StyledButton>
             ))}
           <StyledButton onClick={onRight}><FaArrowAltCircleRight size={32}/></StyledButton>
         </ButtonContainer>
