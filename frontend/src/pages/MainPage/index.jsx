@@ -1,12 +1,12 @@
 import React from 'react'
+import ImageSlider from '../../components/ImageSlider'
 
 const MainPage = () => {
   return (
     <section>
-        {/* Navbar */}
-        {/* Banner*/}
+        {/* 이미지 */ }
         <div>
-            {/* 이미지, 화살표, 제목 */}
+            <ImageSlider/>
         </div>
         {/* Game */}
         <div>
