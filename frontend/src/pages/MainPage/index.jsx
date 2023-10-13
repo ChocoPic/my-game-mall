@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import ImageSlider from '../../components/ImageSlider'
 import CardItem from './Components/CardItem';
 import styled from 'styled-components';
-import data from '../../testData.json';
+// import data from '../../testData.json';
 import { primary, primaryLight, secondaryDark, secondaryLight } from '../../color';
+import { fetchData } from '../../utils/fetchDatas';
 
 //전체
 const GameListContainer = styled.div`
@@ -80,14 +81,11 @@ const MainPage = () => {
   const [tags, setTags] = useState([]); 
   const [filter, setFilter] = useState([]);
   
-  //게임 목록(products)을 세팅하는 함수
-  function getProducts(data){
-    setProducts(data.products);
-  }
   //카테고리(tags)를 세팅하는 함수
-  function getTags(data){
-    const temp = [];
-    data.products.forEach((item) => {
+  function getTags(items){
+    //카테고리 목록 배열 세팅
+    let temp = [];
+    items.forEach((item) => {
       item.tag.forEach((tag) => {
         if(!temp.includes(tag)){
           temp.push(tag)
@@ -95,34 +93,28 @@ const MainPage = () => {
       })
     })
     temp.sort();
-    setTags([["전체보기"],...temp]);
+    setTags([["전체보기"], ...temp]);
+
+    //눌린 카테고리 배열 세팅
+    let temp2 = Array(tags.length).fill(0);
+    temp2[1]=1;
+    temp2[5]=1;
+    setFilter(temp2);
   }
-  //필터 세팅하는 함수
-  function getFilter(){
-    const temp = Array(tags.length).fill(0)
-    temp[1]=1;
-    temp[5]=1;
-    setFilter(temp);
-  }
+
   function onClickFilter(){
     //TODO: 전체보기(0번) 누르면 나머진 초기화
     //카테고리 필터링 클릭 구현하기
   }
 
   useEffect(()=>{
-    if(data){
-      getProducts(data);
-      getTags(data);
-      getFilter();
-    }
-    // fetch('../../testData.json')
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     const p = data.products; 
-    //     setProducts(p);
-    //   })
-    //   .catch((error) => {console.error('데이터 로드 실패: ', error)});
-    }, []);
+    fetchData("products")
+      .then((data) => {
+        setProducts(data);
+        getTags(data);
+      })
+      .catch(error => console.log(error));
+  },[]);
 
   return (
     <>
