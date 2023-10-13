@@ -77,6 +77,7 @@ const CardList = styled.div`
   padding-left: 32px;
 `
 const MainPage = () => {
+  const [banners, setBanners] = useState([]);
   const [products, setProducts] = useState([]);
   const [tags, setTags] = useState([]); 
   const [filter, setFilter] = useState([]);
@@ -106,20 +107,26 @@ const MainPage = () => {
     //TODO: 전체보기(0번) 누르면 나머진 초기화
     //카테고리 필터링 클릭 구현하기
   }
-
+  
   useEffect(()=>{
+    fetchData("banners")
+    .then((b) => {
+      setBanners(b);
+    }).catch(error => console.log("배너 로딩 실패", error));
+    
     fetchData("products")
-      .then((data) => {
-        setProducts(data);
-        getTags(data);
-      })
-      .catch(error => console.log(error));
+    .then((p) => {
+      setProducts(p);
+      getTags(p);
+    })
+    .catch(error => console.log("상품 로딩 실패", error));
   },[]);
+
 
   return (
     <>
         {/* 이미지 슬라이더 파트 */ }
-        <ImageSlider/>
+        <ImageSlider items={banners}/>
         {/* Game 목록 파트*/}
         <GameListContainer>
           <div>

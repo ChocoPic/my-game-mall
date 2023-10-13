@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import {GoDotFill} from 'react-icons/go'
 import { primary, primaryLight, secondaryDark, secondaryLight} from '../color';
-import data from '../testData.json';
-
 
 const SliderContainer = styled.div`
   width: 100%;
@@ -78,8 +76,8 @@ const StyledButton = styled.button`
   } 
   
 `
-const ImageSlider = () => {
-  const items = data.banners;
+const ImageSlider = (props) => {
+  const { items } = props;
   const [curIndex, setCurIndex] = useState(0)
 
   useEffect(()=>{
@@ -106,16 +104,16 @@ const ImageSlider = () => {
 
   return (
     <SliderContainer>
-      <BackImg src={items[curIndex].image} alt='배경'/>
+      <BackImg src={`/img/${items[curIndex].image}`} alt='배경'/>
       <Darker/>
       <Container className='image-slider'> 
-        {items.map((item,index) =>
-          index==curIndex? 
-          <StyledImage key={item.image}
-            src={item.image}
-            alt={item.image}
-          />:''
-        )}
+        {items.map((item, index) => (
+          index==curIndex &&
+          <StyledImage key={index}
+            src={`/img/${item.image}`}
+            alt={item.id}
+          />
+        ))}
         <ButtonContainer>
           <StyledButton onClick={onLeft}><FaArrowAltCircleLeft size={32}/></StyledButton>
           {Array.from({length:items.length},(_,index) => (
@@ -125,7 +123,7 @@ const ImageSlider = () => {
             ))}
           <StyledButton onClick={onRight}><FaArrowAltCircleRight size={32}/></StyledButton>
         </ButtonContainer>
-        <BannerText>{items[curIndex].text}</BannerText>
+        {/* <BannerText>{items[curIndex].text}</BannerText> */}
       </Container>
     </SliderContainer>
   )
