@@ -3,15 +3,42 @@ import styled from 'styled-components';
 import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import {GoDotFill} from 'react-icons/go'
 import { primary, secondaryLight} from '../color';
+
+
+const SliderContainer = styled.div`
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+`
+
 const Container = styled.div`
   width: auto;
   height: 520px;
-  display: flex;
-  flex-direction: vertical;
-  justify-content: center;
-  align-items: center;
   position: relative;
 `
+const BackImg = styled.img`
+  filter: blur(10px);
+  position : absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+`
+const Darker = styled.div`
+  background-color: rgba(0,0,0,0.7);
+  position : absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+`
+
 const StyledImage = styled.img`
   width: auto;
   height: 100%;
@@ -68,6 +95,9 @@ const ImageSlider = () => {
   }
 
   return (
+    <SliderContainer>
+      <BackImg src={items[curIndex]} alt='배경'/>
+      <Darker/>
       <Container className='image-slider'> 
         {items.map((image,index) =>
           index==curIndex? 
@@ -85,7 +115,8 @@ const ImageSlider = () => {
             ))}
           <StyledButton onClick={onRight}><FaArrowAltCircleRight size={32}/></StyledButton>
         </ButtonContainer>
-    </Container>
+      </Container>
+    </SliderContainer>
   )
 }
 

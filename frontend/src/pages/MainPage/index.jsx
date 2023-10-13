@@ -1,13 +1,15 @@
 import React from 'react'
 import ImageSlider from '../../components/ImageSlider'
+import styled from 'styled-components'
+import { primary } from '../../color'
+
+
 
 const MainPage = () => {
   return (
     <section>
         {/* 이미지 */ }
-        <div>
-            <ImageSlider/>
-        </div>
+          <ImageSlider/>
         {/* Game */}
         <div>
 
