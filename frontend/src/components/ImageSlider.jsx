@@ -101,13 +101,13 @@ const ImageSlider = (props) => {
       curIndex == items.length-1 ? 0 : curIndex+1
     )
   }
-
+  //로딩 시간문제! 예외처리를 해주자
   return (
     <SliderContainer>
-      <BackImg src={`/img/${items[curIndex].image}`} alt='배경'/>
+      <BackImg src={ items.length==0 ?'':`/img/${items[curIndex].image}`} alt='배경'/>
       <Darker/>
       <Container className='image-slider'> 
-        {items.map((item, index) => (
+        {items && items.map((item, index) => (
           index==curIndex &&
           <StyledImage key={index}
             src={`/img/${item.image}`}
@@ -123,7 +123,7 @@ const ImageSlider = (props) => {
             ))}
           <StyledButton onClick={onRight}><FaArrowAltCircleRight size={32}/></StyledButton>
         </ButtonContainer>
-        {/* <BannerText>{items[curIndex].text}</BannerText> */}
+        <BannerText>{items.length==0 ? '' : items[curIndex].text}</BannerText>
       </Container>
     </SliderContainer>
   )
