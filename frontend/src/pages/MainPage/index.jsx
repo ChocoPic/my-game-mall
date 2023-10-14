@@ -141,7 +141,8 @@ const MainPage = () => {
                   id={product.id}
                   title={product.title}
                   taglist={product.tag}
-                  img={product.image}/>
+                  img={product.image}
+                  comment={product.comment}/>
               ))}
             </CardList>
           </Bottom>

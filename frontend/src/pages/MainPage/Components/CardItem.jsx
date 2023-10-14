@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { secondaryDark, secondaryLight } from '../../../color'
 
 const Container = styled.div`
@@ -9,7 +9,27 @@ const Container = styled.div`
   display: block;
   border-radius: 12px;
   padding: 4px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2)
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  vertical-align: center;
+  position: relative;
+  z-index:10;
+`
+const Back = styled.div`
+  width: 70%;
+  height: 50%;
+  margin: 16px;
+
+  position: absolute;
+  z-index: -10;
+  top: 0;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 `
 const Img = styled.div`
   width: 100%;
@@ -18,6 +38,11 @@ const Img = styled.div`
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
+
+  transition: width 2s;
+  &:hover{
+    width: 1px;
+  }  
 `
 const TextContainer = styled.div`
   padding: 12px;
@@ -44,12 +69,17 @@ const TagBadge = styled.span`
   font-weight: 500;
   margin-right: 4px;
 `
-//TODO: 태그 리스트 출력 안됨
 
 const CardItem = (props) => {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <Container>
       <Img src={props.img}/>
+      <Back
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        hovered={hovered}>{props.comment}</Back>
       <TextContainer>
         <TitleText>{props.title}</TitleText>
         {props.taglist && 
