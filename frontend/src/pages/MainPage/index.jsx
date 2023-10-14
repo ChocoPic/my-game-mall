@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import ImageSlider from '../../components/ImageSlider'
 import CardItem from './Components/CardItem';
 import styled from 'styled-components';
-// import data from '../../testData.json';
 import { primary, primaryLight, secondaryDark, secondaryLight } from '../../color';
 import { fetchData } from '../../utils/fetchDatas';
 
@@ -41,13 +40,13 @@ const CategoryList = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 1px;
+  gap: 0px;
 `
 const CategoryItem = styled.span`
   background-color: ${props => props.picked===1 ? secondaryLight : primaryLight};
   color: ${props => props.picked===1 ? 'white' : primary};
   width: 100%;
-  padding: 4px 8px;
+  padding: 2px 8px;
   border-radius: 1rem 0 0 1rem;
 
   transition: background-color 0.3s;
@@ -58,7 +57,7 @@ const CategoryItem = styled.span`
   }
 `
 const CategoryItemText = styled.span `
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: normal;
   white-space: nowrap;
