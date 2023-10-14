@@ -13,11 +13,12 @@ const SliderContainer = styled.div`
   position: relative;
   overflow: hidden;
 `
-
 const Container = styled.div`
   width: auto;
   height: 520px;
   position: relative;
+  text-align: center;
+  vertical-align: center;
 `
 const BackImg = styled.img`
   filter: blur(10px);
@@ -43,7 +44,7 @@ const BannerText = styled.div`
   font-size: 16px;
   font-weight: bold;
   color: rgba(0,0,0,0.7);
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.5);
   border-radius: 1rem 0 0 1rem;
   padding: 0 0.5rem;
   position: absolute;
@@ -51,8 +52,9 @@ const BannerText = styled.div`
   right: 0;
 `
 const StyledImage = styled.img`
-  width: auto;
-  height: 100%;
+  width: 842px;
+  height: 520px;
+  object-fit: cover;
 `
 const ButtonContainer = styled.div`
   position: absolute;
@@ -61,10 +63,13 @@ const ButtonContainer = styled.div`
   display: flex;
   height: auto;
   width: auto;
+  z-index: 101;
 `
 const StyledButton = styled.button`
   width: ${props => props.w};
   height: ${props => props.h};
+  padding: 0;
+  margin-right: 4px;
   display: inline;
   flex-direction: horiziontal;
   align-items: center;

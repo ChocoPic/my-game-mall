@@ -4,15 +4,17 @@ import { secondaryDark, secondaryLight } from '../../../color'
 
 const Container = styled.div`
   background-color: #ffffff;
-  width: 200px;
+  width: 210px;
   height: 245px;
   display: block;
-  border-radius: 4px;
-  // box-shadow: 2px 2px 5px rgba(0,0,0,0.5)
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2)
 `
 const Img = styled.div`
-  width: 200px;
+  width: 100%;
   height: 150px;
+  border-radius: 12px;
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;

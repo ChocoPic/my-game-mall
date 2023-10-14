@@ -1,7 +1,11 @@
 //데이터를 읽어오는 함수
-export async function fetchData(name){
+const jsonServerPath = 'http://chocopic.github.io/testDB/index.json';
+const jsonLocalPath = '/testData.json';
+
+//json-server 버전
+export async function fetchData(){
     try{
-        const response = await fetch('http://localhost:5000/'+name);
+        const response = await fetch(jsonServerPath);
         const data = await response.json();
         return data;
     }catch(error){

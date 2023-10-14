@@ -1,18 +1,10 @@
 {
-    "users":[
-        {
-            "id": 1,
-            "name": "CJ",
-            "password": 1234
-        }
-    ],
-
     "products":[
         {
             "id": 1,
             "title": "사이퍼즈",
             "tag": ["AOS"],
-            "image" : "/img/사이퍼즈.jpg"
+            "image" : "/img/사퍼.jpg"
         },
         {
             "id": 2,
@@ -52,14 +44,14 @@
         },
         {
             "id": 8,
-            "title": "이터널 리턴",
-            "tag": ["AOS", "배틀로얄"],
-            "image":"/img/이터널리턴.jpg"
+            "title": "포켓몬스터 DP",
+            "tag": ["닌텐도DS"],
+            "image":"/img/포켓몬.jpg"
         },
         {
             "id": 9,
             "title": "Deemo",
-            "tag": ["리듬"],
+            "tag": ["리듬", "모바일"],
             "image":"/img/디모.jpg"
         },
         {
@@ -70,22 +62,64 @@
         },
         {
             "id": 11,
-            "title": "크레이지 아케이드",
-            "tag": ["전략"],
-            "image":"/img/크아.jpg"
-        },
-        {
-            "id": 12,
             "title": "카트라이더",
             "tag": ["레이싱"],
             "image":"/img/카트.jpg"
         },
         {
-            "id": 13,
+            "id": 12,
             "title": "Portal 2",
             "tag": ["퍼즐"],
             "image":"/img/포탈.jpg"
-        }
+        },
+        {
+            "id": 13,
+            "title": "Gris",
+            "tag": ["어드벤쳐"],
+            "image":"/img/그리스.jpg"
+        },
+        {
+            "id": 14,
+            "title": "Don't Starve Together",
+            "tag": ["협동", "생존"],
+            "image":"/img/돈스타브.jpg"
+        },
+        {
+            "id": 15,
+            "title": "데스티니 가디언즈",
+            "tag": ["FPS", "RPG"],
+            "image":"/img/데가.jpg"
+        },
+        {
+            "id": 16,
+            "title": "블레이드 앤 소울",
+            "tag": ["MMORPG"],
+            "image":"/img/블소.jpg"
+        },
+        {
+            "id": 17,
+            "title": "윈드러너",
+            "tag": ["모바일"],
+            "image":"/img/윈드러너.jpg"
+        },
+        {
+            "id": 18,
+            "title": "우파루마운틴",
+            "tag": ["모바일","육성"],
+            "image":"/img/우파루.jpg"
+        },
+        {
+            "id": 19,
+            "title": "마리오카트",
+            "tag": ["닌텐도DS"],
+            "image":"/img/마리오카트.jpg"
+        },
+        {
+            "id": 19,
+            "title": "바운스볼",
+            "tag": ["모바일"],
+            "image":"/img/바운스볼.jpg"
+        }      
     ],
     "banners":[
         {
@@ -97,6 +131,21 @@
             "id": 2,
             "image": "image2.png",
             "text": "딴 게임도 일러스트 공식에서 올려주면 좋겠다. 배너랑 썸네일로 뭘 넣어야하나"
+        },
+        {
+            "id": 3,
+            "image": "image3.jpg",
+            "text": "한 때 친구랑 MMORPG 진짜 열심히 했었지"
+        },
+        {
+            "id": 4,
+            "image": "image4.png",
+            "text": "디모는 아름다운 음악과 따뜻한 일러스트가 어우러진 갓겜입니다."
+        },
+        {
+            "id": 5,
+            "image": "image5.png",
+            "text": "오리와 도깨비불도 재밌어요. 그래픽 예쁘고 많이 안어렵고 최고."
         }
     ]
 }

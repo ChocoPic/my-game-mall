@@ -99,27 +99,21 @@ const MainPage = () => {
     //눌린 카테고리 배열 세팅
     let temp2 = Array(tags.length).fill(0);
     temp2[1]=1;
-    temp2[5]=1;
     setFilter(temp2);
   }
 
   function onClickFilter(){
-    //TODO: 전체보기(0번) 누르면 나머진 초기화
+    //TODO: 하나 누르면 나머진 초기화
     //카테고리 필터링 클릭 구현하기
   }
-  
-  useEffect(()=>{
-    fetchData("banners")
-    .then((b) => {
-      setBanners(b);
-    }).catch(error => console.log("배너 로딩 실패", error));
     
-    fetchData("products")
-    .then((p) => {
-      setProducts(p);
-      getTags(p);
-    })
-    .catch(error => console.log("상품 로딩 실패", error));
+  useEffect(()=>{
+    fetchData()
+    .then((data) => {
+      setProducts(data.products);
+      getTags(data.products);
+      setBanners(data.banners);
+    }).catch(error => console.log("배너 로딩 실패", error));
   },[]);
 
 
