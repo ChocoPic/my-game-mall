@@ -5,6 +5,17 @@ import styled from 'styled-components';
 import { primary, primaryLight, secondaryDark, secondaryLight } from '../../color';
 import { fetchData } from '../../utils/fetchDatas';
 
+///////TODO: 필터링 기능 넣기
+///////상단바 프로필이미지 변경하기
+
+/* <더 해볼만한거>
+이미지도 서버에 올리기
+다크모드 라이트모드
+로그인, 관리자페이지
+데이터 더 넣기
+*/
+
+
 //전체
 const GameListContainer = styled.div`
   padding-top: 64px;
