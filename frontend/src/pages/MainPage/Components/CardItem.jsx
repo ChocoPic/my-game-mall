@@ -39,7 +39,7 @@ const Img = styled.div`
   background-size: cover;
   background-position: center;
 
-  transition: ${props => (props.hovered ? 'width 1s ease' : 'none')};
+  transition: ${props => (props.hovered===1 ? 'width 1s ease' : 'none')};
 `
 const TextContainer = styled.div`
   padding: 12px;
@@ -68,12 +68,12 @@ const TagBadge = styled.span`
 `
 
 const CardItem = (props) => {
-  const [hovered, setHovered] = useState(false);
+  const [hovered, setHovered] = useState(0);
 
   return (
     <Container 
-    onMouseEnter={() => setHovered(true)}
-    onMouseLeave={() => setHovered(false)}
+    onMouseEnter={() => setHovered(1)}
+    onMouseLeave={() => setHovered(0)}
     hovered={hovered}>
       <Img src={props.img} hovered={hovered}/>
       <Back>

@@ -25,7 +25,7 @@ const Footer = () => {
   return (
     <Text>
       <span>@made by CJ</span>
-      <Link href='https://github.com/ChocoPic'>Github</Link>
+      <Link href='https://github.com/ChocoPic' target='_blank'>Github</Link>
     </Text>
     
   )
