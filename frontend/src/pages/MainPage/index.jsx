@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { primary, primaryLight, secondaryDark, secondaryLight } from '../../color';
 import { fetchData } from '../../utils/fetchDatas';
 
-///////TODO: 필터링 기능 넣기
+///////TODO:
 ///////상단바 프로필이미지 변경하기
+///////페이지 하단 차트(필터 바꿔가면서 볼 수 있게)
 
 /* <더 해볼만한거>
 성능 개선
@@ -88,6 +89,15 @@ const CardList = styled.div`
   padding-top: 32px;
   padding-left: 64px;
 `
+// 차트 영역
+const GameChartContainer = styled.div`
+  padding-top: 64px;
+  padding-bottom: 64px;
+  padding-left: 32px;
+  padding-right: 32px; 
+  background-color: ${primaryLight}
+`
+
 const MainPage = () => {
   const [banners, setBanners] = useState([]);
   const [products, setProducts] = useState([]);
@@ -168,9 +178,14 @@ const MainPage = () => {
               ))}
             </CardList>
           </Bottom>
-          
         </GameListContainer>
-
+        {/* 게임 차트로 보기 - chart.js? */}
+        <GameChartContainer>
+          <div>
+            <MenuText>SUMMARY</MenuText>
+            <Line/>
+          </div>
+        </GameChartContainer>
     </>
   )
 }
