@@ -32,7 +32,7 @@ const Back = styled.div`
   word-wrap: break-word; 
 `
 const Img = styled.div`
-  width: ${props => (props.hovered ? '1px' : '100%') };
+  width: ${props => (props.hovered==1 ? '1px' : '100%') };
   height: 150px;
   border-radius: 12px;
   background-image: url(${props => props.src});
