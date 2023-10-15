@@ -9,6 +9,8 @@ import { fetchData } from '../../utils/fetchDatas';
 ///////상단바 프로필이미지 변경하기
 
 /* <더 해볼만한거>
+성능 개선
+더보기 기능
 이미지도 서버에 올리기
 다크모드 라이트모드
 로그인, 관리자페이지
@@ -90,7 +92,8 @@ const MainPage = () => {
   const [banners, setBanners] = useState([]);
   const [products, setProducts] = useState([]);
   const [tags, setTags] = useState([]); 
-  const [filter, setFilter] = useState([]);
+  const [category, setCategory] = useState(3);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   
   //카테고리(tags)를 세팅하는 함수
   function getTags(items){
@@ -99,28 +102,35 @@ const MainPage = () => {
     items.forEach((item) => {
       item.tag.forEach((tag) => {
         if(!temp.includes(tag)){
-          temp.push(tag)
+          temp.push(tag);
         }
       })
     })
     temp.sort();
     setTags([["전체보기"], ...temp]);
-
-    //눌린 카테고리 배열 세팅
-    let temp2 = Array(tags.length).fill(0);
-    temp2[1]=1;
-    setFilter(temp2);
   }
 
-  function onClickFilter(){
-    //TODO: 하나 누르면 나머진 초기화
-    //카테고리 필터링 클릭 구현하기
+  //카테고리 전환하는 함수
+  function changeCategory(index){
+    setCategory(index);
+    if(index!=0){
+      let temp = []
+      products.forEach(product=> {
+        if(product.tag.includes(tags[index])){
+          temp.push(product);
+        }
+      })
+      setFilteredProducts(temp);
+    }else{
+      setFilteredProducts(products);
+    }
   }
-    
+
   useEffect(()=>{
     fetchData()
     .then((data) => {
       setProducts(data.products);
+      setFilteredProducts(data.products);
       getTags(data.products);
       setBanners(data.banners);
     }).catch(error => console.log("배너 로딩 실패", error));
@@ -140,13 +150,15 @@ const MainPage = () => {
           <Bottom>
             <CategoryList>
               {tags.map((tag, index) => (
-                <CategoryItem key={tag} picked={filter[index]}>
+                <CategoryItem key={tag} 
+                  picked={index===category? 1:0}
+                  onClick={()=>changeCategory(index)}>
                   <CategoryItemText>{tag}</CategoryItemText>
                 </CategoryItem>
               ))}
             </CategoryList>
             <CardList>
-              {products.map((product, index) => (
+              {filteredProducts.map((product, index) => (
                 <CardItem key={index} 
                   id={product.id}
                   title={product.title}
