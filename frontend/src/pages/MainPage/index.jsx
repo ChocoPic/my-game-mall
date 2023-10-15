@@ -102,7 +102,7 @@ const MainPage = () => {
   const [banners, setBanners] = useState([]);
   const [products, setProducts] = useState([]);
   const [tags, setTags] = useState([]); 
-  const [category, setCategory] = useState(3);
+  const [category, setCategory] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState([]);
   
   //카테고리(tags)를 세팅하는 함수
