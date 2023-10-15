@@ -29,20 +29,17 @@ const Back = styled.div`
   text-align: center;
   font-size: 12px;
   white-space: pre-wrap;
-  word-wrap: break-word;
+  word-wrap: break-word; 
 `
 const Img = styled.div`
-  width: 100%;
+  width: ${props => (props.hovered ? '1px' : '100%') };
   height: 150px;
   border-radius: 12px;
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
 
-  transition: width 2s;
-  &:hover{
-    width: 1px;
-  }  
+  transition: ${props => (props.hovered ? 'width 1s ease' : 'none')};
 `
 const TextContainer = styled.div`
   padding: 12px;
@@ -74,12 +71,13 @@ const CardItem = (props) => {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Container>
-      <Img src={props.img}/>
-      <Back
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        hovered={hovered}>{props.comment}</Back>
+    <Container 
+    onMouseEnter={() => setHovered(true)}
+    onMouseLeave={() => setHovered(false)}
+    hovered={hovered}>
+      <Img src={props.img} hovered={hovered}/>
+      <Back>
+        {props.comment}</Back>
       <TextContainer>
         <TitleText>{props.title}</TitleText>
         {props.taglist && 

@@ -48,7 +48,7 @@ const Bottom = styled.div`
 const CategoryList = styled.div`
   width: auto;
   height 100%;
-  padding: 32px 0px;
+  padding: 16px 0px;
   
   display: flex;
   flex-direction: column;
@@ -83,10 +83,10 @@ const CardList = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 32px;
-  place-items: center;
-  justify-self: center;
+  place-items: start;
+  justify-self: start;
   padding-top: 32px;
-  padding-left: 32px;
+  padding-left: 64px;
 `
 const MainPage = () => {
   const [banners, setBanners] = useState([]);
