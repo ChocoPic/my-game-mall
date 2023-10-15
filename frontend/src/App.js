@@ -20,14 +20,17 @@ function BasicLayout(){
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/my-game-mall/' element={<BasicLayout/>}>
-          <Route index element={<MainPage/>}/>
-          {/* <Route path='/product/:productId' element={<DetailPage/>}/> */}
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <div className='App'>
+      <MainPage/>
+    </div>
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path='/my-game-mall/' element={<BasicLayout/>}>
+    //       <Route index element={<MainPage/>}/>
+    //       {/* <Route path='/product/:productId' element={<DetailPage/>}/> */}
+    //     </Route>
+    //   </Routes>
+    // </BrowserRouter>
   );
 }
 
