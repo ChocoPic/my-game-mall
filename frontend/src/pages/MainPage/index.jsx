@@ -37,8 +37,8 @@ const MenuText = styled.span`
 `
 const Line = styled.div`
   width: 100%;
-  height: 2px;
-  background: rgba(0,0,0,0.2);
+  height: ${(props) => (props.h ? props.h : '2px')};
+  background: ${(props) => (props.c ? props.c : 'rgba(0,0,0,0.2)')};
 `
 //카테고리 영역
 const Bottom = styled.div`
@@ -88,7 +88,22 @@ const CardList = styled.div`
   justify-self: start;
   padding-top: 32px;
   padding-left: 64px;
+  position: relative;
 `
+const MoreButton = styled.button`
+  position: absolute;
+  bottom: -100px;
+  left: 48%;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background: ${secondaryLight};
+  border-radius: 20px; 
+  border: none;
+  padding: 4px 12px;
+  cursor: pointer; 
+`
+
 // 차트 영역
 const GameChartContainer = styled.div`
   padding-top: 64px;
@@ -104,24 +119,29 @@ const MainPage = () => {
   const [tags, setTags] = useState([]); 
   const [category, setCategory] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [page, setPage] = useState(1); //더보기
+  const [cnt, setCnt] = useState([]); //카테고리별 아이템 개수
+  const itemsPerPage = 6;
+  const platform = ["PC 게임", "모바일 게임", "닌텐도DS 게임"];
+
   
-  //카테고리(tags)를 세팅하는 함수
+  ////카테고리(tags)를 세팅하는 함수
   function getTags(items){
-    //카테고리 목록 배열 세팅
+    // 카테고리 목록 만들기
     let temp = [];
     items.forEach((item) => {
       item.tag.forEach((tag) => {
-        if(!temp.includes(tag)){
+        if(!tag.includes("게임") && !temp.includes(tag)){
           temp.push(tag);
         }
       })
     })
     temp.sort();
-    setTags([["전체보기"], ...temp]);
+    setTags([["전체보기"], ...temp, ...platform]);
   }
-
-  //카테고리 전환하는 함수
-  function changeCategory(index){
+ 
+  ////카테고리 전환하는 함수
+  function onChangeCategory(index){
     setCategory(index);
     if(index!=0){
       let temp = []
@@ -134,16 +154,28 @@ const MainPage = () => {
     }else{
       setFilteredProducts(products);
     }
+    setPage(1); //카테고리 바뀌면 초기화
+  }
+  
+  ///더보기 클릭시 실행할 함수
+  function onMore(){
+     const start = page * itemsPerPage;  //새로 표시될 아이템 인덱스
+     const end = start + itemsPerPage - 1; //마지막으로 표시될 아이템 인덱스
+     if(end < filteredProducts.length){
+       setPage(page+1);
+     }
   }
 
+
   useEffect(()=>{
+    console.log('실행!');
     fetchData()
     .then((data) => {
-      setProducts(data.products);
-      setFilteredProducts(data.products);
-      getTags(data.products);
-      setBanners(data.banners);
-    }).catch(error => console.log("배너 로딩 실패", error));
+      setProducts(data.products); //전체 데이터 불러오기
+      setBanners(data.banners); //전체 배너 세팅하기
+      getTags(data.products); // 전체 태그 종류 불러오기
+      setFilteredProducts(data.products); //보여줄 데이터 세팅하기
+    }).catch(error => console.log("데이터 로딩 실패", error));
   },[]);
 
 
@@ -158,24 +190,34 @@ const MainPage = () => {
             <Line/>
           </div>
           <Bottom>
+            {/* 메뉴 */}
             <CategoryList>
               {tags.map((tag, index) => (
                 <CategoryItem key={tag} 
                   picked={index===category? 1:0}
-                  onClick={()=>changeCategory(index)}>
+                  onClick={()=>onChangeCategory(index)}>
                   <CategoryItemText>{tag}</CategoryItemText>
                 </CategoryItem>
               ))}
             </CategoryList>
+            {/* 목록 */}
             <CardList>
+              {/* 아이템들 */}
               {filteredProducts.map((product, index) => (
-                <CardItem key={index} 
-                  id={product.id}
-                  title={product.title}
-                  taglist={product.tag}
-                  img={product.image}
-                  comment={product.comment}/>
-              ))}
+                (index < page*itemsPerPage) ? //더보기 전까지 표시
+                  <CardItem key={index} 
+                    id={product.id}
+                    title={product.title}
+                    taglist={product.tag}
+                    img={`/my-game-mall/${product.image}`}
+                    comment={product.comment}/>:''
+                ))
+              }
+              {/* 더보기 버튼 */}
+              {(page*itemsPerPage < filteredProducts.length-2)
+                ? <MoreButton onClick={onMore}>더보기</MoreButton>
+                : ''
+              }
             </CardList>
           </Bottom>
         </GameListContainer>

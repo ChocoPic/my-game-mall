@@ -1,5 +1,5 @@
 //데이터를 읽어오는 함수
-const jsonServerPath = 'http://chocopic.github.io/testDB/index.json';
+const jsonServerPath = 'https://chocopic.github.io/testDB/index.json';
 const jsonLocalPath = '/testData.json';
 
 //json-server 버전

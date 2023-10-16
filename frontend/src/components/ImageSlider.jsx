@@ -109,13 +109,13 @@ const ImageSlider = (props) => {
   //로딩 시간문제! 예외처리를 해주자
   return (
     <SliderContainer>
-      <BackImg src={ items.length==0 ?'':`/img/${items[curIndex].image}`} alt='배경'/>
+      <BackImg src={ items.length==0 ?'':`/my-game-mall/${items[curIndex].image}`} alt='배경'/>
       <Darker/>
       <Container className='image-slider'> 
         {items && items.map((item, index) => (
           index==curIndex &&
           <StyledImage key={index}
-            src={`/img/${item.image}`}
+            src={`/my-game-mall/${item.image}`}
             alt={item.id}
           />
         ))}
