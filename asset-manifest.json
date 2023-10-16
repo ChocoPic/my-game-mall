@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "https://chocopic.github.io/my-game-mall/static/css/main.04888cbb.css",
-    "main.js": "https://chocopic.github.io/my-game-mall/static/js/main.7fdd2f59.js",
-    "static/js/787.c8d09ba3.chunk.js": "https://chocopic.github.io/my-game-mall/static/js/787.c8d09ba3.chunk.js",
-    "index.html": "https://chocopic.github.io/my-game-mall/index.html",
-    "main.04888cbb.css.map": "https://chocopic.github.io/my-game-mall/static/css/main.04888cbb.css.map",
-    "main.7fdd2f59.js.map": "https://chocopic.github.io/my-game-mall/static/js/main.7fdd2f59.js.map",
-    "787.c8d09ba3.chunk.js.map": "https://chocopic.github.io/my-game-mall/static/js/787.c8d09ba3.chunk.js.map"
+    "main.css": "/my-game-mall/static/css/main.04888cbb.css",
+    "main.js": "/my-game-mall/static/js/main.53733ec3.js",
+    "static/js/787.c8d09ba3.chunk.js": "/my-game-mall/static/js/787.c8d09ba3.chunk.js",
+    "index.html": "/my-game-mall/index.html",
+    "main.04888cbb.css.map": "/my-game-mall/static/css/main.04888cbb.css.map",
+    "main.53733ec3.js.map": "/my-game-mall/static/js/main.53733ec3.js.map",
+    "787.c8d09ba3.chunk.js.map": "/my-game-mall/static/js/787.c8d09ba3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.04888cbb.css",
-    "static/js/main.7fdd2f59.js"
+    "static/js/main.53733ec3.js"
   ]
 }
