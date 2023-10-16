@@ -4,6 +4,7 @@ import CardItem from './Components/CardItem';
 import styled from 'styled-components';
 import { primary, primaryLight, secondaryDark, secondaryLight } from '../../color';
 import { fetchData } from '../../utils/fetchDatas';
+import MyChart from '../../components/Chart';
 
 ///////TODO:
 ///////상단바 프로필이미지 변경하기
@@ -111,6 +112,19 @@ const GameChartContainer = styled.div`
   padding-left: 32px;
   padding-right: 32px; 
   background-color: ${primaryLight}
+  width: 100%;
+  height: auto;
+`
+const ChartContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+`
+const ChartDiv = styled.div`
+  display: block;
+  margin: 40px;
 `
 
 const MainPage = () => {
@@ -122,22 +136,46 @@ const MainPage = () => {
   const [page, setPage] = useState(1); //더보기
   const [cnt, setCnt] = useState([]); //카테고리별 아이템 개수
   const itemsPerPage = 6;
-  const platform = ["PC 게임", "모바일 게임", "닌텐도DS 게임"];
-
   
   ////카테고리(tags)를 세팅하는 함수
   function getTags(items){
-    // 카테고리 목록 만들기
-    let temp = [];
+    //// 카테고리 목록 만들기
+    let temp_category = [];
     items.forEach((item) => {
       item.tag.forEach((tag) => {
-        if(!tag.includes("게임") && !temp.includes(tag)){
-          temp.push(tag);
+        if(!temp_category.includes(tag)){
+          temp_category.push(tag);
         }
       })
     })
-    temp.sort();
-    setTags([["전체보기"], ...temp, ...platform]);
+    //카테고리 보기 좋게 정렬
+    temp_category.sort(); //사전순 정렬
+    temp_category.sort((a, b) => {  //플랫폼은 뒤로
+      let aa = a.charAt(a.length-1);
+      let bb = b.charAt(a.length-1);
+      if(((aa=="임")&&(bb!="임"))||((aa=="임")&&(bb=="임"))){
+        return 1
+      }
+      else{
+        return -1
+      }
+    });
+    setTags(["전체보기", ...temp_category]);
+
+    
+    ////카테고리별 개수 세기
+    let temp_cnt = Array(temp_category.length+1).fill(0);
+    temp_cnt[0] = items.length;
+    items.forEach((item) => {
+      item.tag.forEach((tag) => {
+        for(let i=0; i<=temp_category.length; i++){ //카테고리==태그면 개수 +1 
+          if(temp_category[i] == tag){
+            temp_cnt[i+1]++;
+          }
+        }
+      })
+    })
+    setCnt([items.length, ...temp_cnt]);
   }
  
   ////카테고리 전환하는 함수
@@ -159,16 +197,12 @@ const MainPage = () => {
   
   ///더보기 클릭시 실행할 함수
   function onMore(){
-     const start = page * itemsPerPage;  //새로 표시될 아이템 인덱스
-     const end = start + itemsPerPage - 1; //마지막으로 표시될 아이템 인덱스
-     if(end < filteredProducts.length){
+     if(page*itemsPerPage - filteredProducts.length < 0){
        setPage(page+1);
      }
   }
 
-
   useEffect(()=>{
-    console.log('실행!');
     fetchData()
     .then((data) => {
       setProducts(data.products); //전체 데이터 불러오기
@@ -178,58 +212,85 @@ const MainPage = () => {
     }).catch(error => console.log("데이터 로딩 실패", error));
   },[]);
 
+  const about_platform = {
+    labels: ["PC","모바일","콘솔"],
+    datasets: [
+      {
+        data: [cnt[cnt.length-3],cnt[cnt.length-2],cnt[cnt.length-1]],
+        backgroundColor:['rgba(255, 99, 132, 0.2)','rgba(54, 162, 235, 0.2)','rgba(255, 206, 86, 0.2)']
+      },
+    ],
+  };
+  const about_genre = {
+    labels: tags.slice(1, tags.length-3),
+    datasets:[
+      {
+        data: cnt.slice(2,cnt.length-3),
+        backgroundColor:['#FF8080','#CDFAD5','#FFF89A','#9ADCFF','#C1AEFC']
+      }
+    ]
+  };
 
-  return (
-    <>
-        {/* 이미지 슬라이더 파트 */ }
-        <ImageSlider items={banners}/>
-        {/* Game 목록 파트*/}
-        <GameListContainer>
-          <div>
-            <MenuText>GAME LIST</MenuText>
-            <Line/>
-          </div>
-          <Bottom>
-            {/* 메뉴 */}
-            <CategoryList>
-              {tags.map((tag, index) => (
-                <CategoryItem key={tag} 
-                  picked={index===category? 1:0}
-                  onClick={()=>onChangeCategory(index)}>
-                  <CategoryItemText>{tag}</CategoryItemText>
-                </CategoryItem>
-              ))}
-            </CategoryList>
-            {/* 목록 */}
-            <CardList>
-              {/* 아이템들 */}
-              {filteredProducts.map((product, index) => (
-                (index < page*itemsPerPage) ? //더보기 전까지 표시
-                  <CardItem key={index} 
-                    id={product.id}
-                    title={product.title}
-                    taglist={product.tag}
-                    img={`/my-game-mall/${product.image}`}
-                    comment={product.comment}/>:''
-                ))
-              }
-              {/* 더보기 버튼 */}
-              {(page*itemsPerPage < filteredProducts.length-2)
-                ? <MoreButton onClick={onMore}>더보기</MoreButton>
-                : ''
-              }
-            </CardList>
-          </Bottom>
-        </GameListContainer>
-        {/* 게임 차트로 보기 - chart.js? */}
-        <GameChartContainer>
-          <div>
-            <MenuText>SUMMARY</MenuText>
-            <Line/>
-          </div>
-        </GameChartContainer>
-    </>
-  )
+  if(!products || !tags){
+    return(<div>로딩중...</div>)
+  }else{
+    console.log(tags, cnt);
+    return (
+      <>
+          {/* 이미지 슬라이더 파트 */ }
+          <ImageSlider items={banners}/>
+          {/* Game 목록 파트*/}
+          <GameListContainer>
+            <div>
+              <MenuText>GAME LIST</MenuText>
+              <Line/>
+            </div>
+            <Bottom>
+              {/* 메뉴 */}
+              <CategoryList>
+                {tags.map((tag, index) => (
+                  <CategoryItem key={tag} 
+                    picked={index===category? 1:0}
+                    onClick={()=>onChangeCategory(index)}>
+                    <CategoryItemText>{tag}</CategoryItemText>
+                  </CategoryItem>
+                ))}
+              </CategoryList>
+              {/* 목록 */}
+              <CardList>
+                {/* 아이템들 */}
+                {filteredProducts.map((product, index) => (
+                  (index<page*itemsPerPage) ? //더보기 전까지 표시
+                    <CardItem key={index} 
+                      id={product.id}
+                      title={product.title}
+                      taglist={product.tag}
+                      img={`/my-game-mall/${product.image}`}
+                      comment={product.comment}/>:''
+                  ))
+                }
+                {/* 더보기 버튼 */}
+                {(page*itemsPerPage - filteredProducts.length < 0)
+                  ? <MoreButton onClick={onMore}>더보기</MoreButton>
+                  : ''
+                }
+              </CardList>
+            </Bottom>
+          </GameListContainer>
+          {/* 게임 차트로 보기 - chart.js? */}
+          <GameChartContainer>
+            <div>
+              <MenuText>SUMMARY</MenuText>
+              <Line/>
+              <ChartContainer>
+                <ChartDiv><MyChart data={about_platform} title='플랫폼별 게임현황' type='bar'/></ChartDiv>
+                <ChartDiv><MyChart data={about_genre} title='장르 선호도' type='doughnut'/></ChartDiv>
+              </ChartContainer>
+            </div>
+          </GameChartContainer>
+      </>
+    )
+  } 
 }
 
 export default MainPage
