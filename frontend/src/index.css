@@ -16,6 +16,7 @@ body {
   font-family: 'Noto Sans KR', 'Jua', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F1F6F9;
 }
 
 code {

@@ -46,6 +46,7 @@ const Bottom = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  background-color: none;
 `
 const CategoryList = styled.div`
   width: auto;
@@ -93,9 +94,9 @@ const CardList = styled.div`
 `
 const MoreButton = styled.button`
   position: absolute;
-  bottom: -100px;
+  bottom: -80px;
   left: 48%;
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: bold;
   color: white;
   background: ${secondaryLight};
@@ -111,7 +112,6 @@ const GameChartContainer = styled.div`
   padding-bottom: 64px;
   padding-left: 32px;
   padding-right: 32px; 
-  background-color: ${primaryLight}
   width: 100%;
   height: auto;
 `
@@ -121,6 +121,8 @@ const ChartContainer = styled.div`
   height: auto;
   align-items: center;
   justify-content: center;
+  background-color: white;
+  margin: 32px 0px;
 `
 const ChartDiv = styled.div`
   display: block;
