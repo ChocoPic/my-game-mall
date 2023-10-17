@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { primaryLight, secondaryLight, tertiaryLight } from '../color'
+import { primary, primaryLight, secondaryLight, tertiaryLight } from '../color'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../utils/userFunction'
 
@@ -10,11 +10,17 @@ const Container =  styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${primaryLight};
+  position: relative;
 `
 const UserMenu = styled.div`
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: end;
+  position: absolute;
+  right: 0;
+  padding: 2px 24px;
+  width: 100%;
+  height: 100%;
 `
 const LogoText = styled.div`
   display: inline-block;
@@ -27,15 +33,12 @@ const C = styled.span`
   font-weight: 800;
   line-height: normal;
 `
-const MenuContainer = styled.div`
-  
-`
 const ProfileContainer = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
-  margin: 12px 0 12px 2px;
+  margin-left: 12px;
   border: solid 1px ${primaryLight};
 `
 const ProfileImg = styled.img`
@@ -43,7 +46,17 @@ const ProfileImg = styled.img`
   height: 100%;
   object-fit: cover;
 `
-
+const Button = styled.span`
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  vertical-align: middle;
+  color: ${primary};
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+`
 const Navbar = () => {
   const LOGO = "MYPLAY".split("");  //출력할 텍스트
   const [curIndex, setCurIndex] = useState(0);//출력할 인덱스
@@ -75,19 +88,15 @@ const Navbar = () => {
         ))}
       </LogoText>
       <UserMenu>
-        {/* <AiOutlineShoppingCart size={48} color={primaryLight}/> */}
-        
-        <MenuContainer>
+        {/* <AiOutlineShoppingCart size={48} color={primaryLight}/> */}        
         {isAuth==='true'?
-          <button onClick={handleLogout}>로그아웃</button>:
-          <div>
-            <ProfileContainer>
-              <ProfileImg src="/img/프로필이미지.jpg" alt='프로필이미지'/>
-            </ProfileContainer>
-            <button onClick={()=>navigate('/login')}>로그인</button>
-          </div>
+            <><Button onClick={handleLogout}>로그아웃</Button>
+            {/* <ProfileContainer>
+              <ProfileImg src="./img/프로필이미지.jpg" alt='프로필이미지'/>
+            </ProfileContainer>*/}</>
+          :<Button onClick={()=>navigate('/login')}>로그인</Button> 
+            
         }
-        </MenuContainer>        
       </UserMenu>
     </Container>
   )
