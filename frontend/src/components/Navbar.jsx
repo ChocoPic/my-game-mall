@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {AiOutlineShoppingCart} from 'react-icons/ai'
-import { primary, primaryLight, secondaryDark, secondaryLight, tertiary, tertiaryLight } from '../color'
+import { primaryLight, secondaryLight, tertiaryLight } from '../color'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../utils/userFunction'
 
 const Container =  styled.div`
   display: flex;
@@ -26,6 +27,9 @@ const C = styled.span`
   font-weight: 800;
   line-height: normal;
 `
+const MenuContainer = styled.div`
+  
+`
 const ProfileContainer = styled.div`
   width: 40px;
   height: 40px;
@@ -43,7 +47,24 @@ const ProfileImg = styled.img`
 const Navbar = () => {
   const LOGO = "MYPLAY".split("");  //출력할 텍스트
   const [curIndex, setCurIndex] = useState(0);//출력할 인덱스
- 
+  const [isAuth, setIsAuth] = useState();
+  const [checkAuth, setCheckAuth] = useState();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    setIsAuth(sessionStorage.getItem("isAuth"));
+  })
+  // useEffect(()=>{  //useState가 비동기작업이라서 딜레이가 발생했다.
+  //   //그동안의 해결책: 임시변수를 사용하기 / 로딩되면 랜더링하기
+  //   //요번 해결책: 의존성배열을 넣어서 갱신되면 수행할 동작을 여기에 넣기 
+  //   console.log(isAuth); 
+  // },[isAuth])
+
+  function handleLogout(){
+    logout();
+    setIsAuth(false);
+  }
+
   return (
     <Container>
       <LogoText>
@@ -55,9 +76,18 @@ const Navbar = () => {
       </LogoText>
       <UserMenu>
         {/* <AiOutlineShoppingCart size={48} color={primaryLight}/> */}
-        <ProfileContainer>
-          <ProfileImg src="/img/프로필이미지.jpg" alt='프로필이미지'/>
-        </ProfileContainer>
+        
+        <MenuContainer>
+        {isAuth==='true'?
+          <button onClick={handleLogout}>로그아웃</button>:
+          <div>
+            <ProfileContainer>
+              <ProfileImg src="/img/프로필이미지.jpg" alt='프로필이미지'/>
+            </ProfileContainer>
+            <button onClick={()=>navigate('/login')}>로그인</button>
+          </div>
+        }
+        </MenuContainer>        
       </UserMenu>
     </Container>
   )
