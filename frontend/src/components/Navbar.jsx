@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { primary, primaryLight, secondaryLight, tertiaryLight } from '../color'
+import { M, S, XL, XS, black, gray, primary, secondary_light} from '../style_variable'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../utils/userFunction'
 
 const Container =  styled.div`
   display: flex;
-  padding: 0px 16px;
+  padding: 0px 32px;
   justify-content: center;
   align-items: center;
-  background-color: ${primaryLight};
   position: relative;
+  height: 80px;
 `
 const UserMenu = styled.div`
   display: flex;
@@ -29,9 +29,8 @@ const C = styled.span`
   color: ${props => props.color};
   font-family: Jua;
   font-size: 40px;
-  font-style: normal;
   font-weight: 800;
-  line-height: normal;
+  letter-spacing: -2px;
 `
 const ProfileContainer = styled.div`
   width: 40px;
@@ -39,7 +38,7 @@ const ProfileContainer = styled.div`
   border-radius: 50%;
   overflow: hidden;
   margin-left: 12px;
-  border: solid 1px ${primaryLight};
+  border: solid 1px ${gray};
 `
 const ProfileImg = styled.img`
   width: 100%;
@@ -52,8 +51,8 @@ const Button = styled.span`
   border-radius: 1.5rem;
   text-align: center;
   vertical-align: middle;
-  color: ${primary};
-  font-size: 0.75rem;
+  color: ${black};
+  font-size: ${XS};
   font-weight: 600;
   cursor: pointer;
 `
@@ -83,7 +82,7 @@ const Navbar = () => {
       <LogoText>
         {LOGO.map((char, index) => (
           <C key={index}
-            color={index%2==0 ? secondaryLight : tertiaryLight}
+            color={index%2==0 ? primary : secondary_light}
           >{char}</C>
         ))}
       </LogoText>

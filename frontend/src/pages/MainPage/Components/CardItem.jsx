@@ -1,70 +1,80 @@
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { secondaryDark, secondaryLight } from '../../../color'
+import { M, S, XS, black, card_height, card_width, gray, gray_light, primary, secondary, secondary_dark, secondary_light, white } from '../../../style_variable'
 
 const Container = styled.div`
-  background-color: #ffffff;
-  width: 210px;
-  height: 245px;
-  display: block;
-  border-radius: 12px;
-  padding: 4px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-  vertical-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 8px;
+  background: ${white};
+  width: 280px;
   position: relative;
-  z-index:10;
+  margin-bottom: 32px;
 `
 const Back = styled.div`
+  z-index: 0;
   width: 70%;
   height: 50%;
   margin: 16px;
-
   position: absolute;
-  z-index: -10;
   top: 0;
   left: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 12px;
+  font-size: ${XS};
   white-space: pre-wrap;
   word-wrap: break-word; 
+  color: ${black};
 `
 const Img = styled.div`
+  z-index: 1;
   width: ${props => (props.hovered==1 ? '1px' : '100%') };
-  height: 150px;
+  height: 210px;
   border-radius: 12px;
+  outline: 2px solid rgba(0,0,0,0.1);
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
+  background-color: ${gray};
 
   transition: ${props => (props.hovered===1 ? 'width 1s ease' : 'none')};
 `
 const TextContainer = styled.div`
-  padding: 12px;
+  display: flex;
+  padding: 16px 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  // border: 1px solid ${gray_light};
 `
 const TitleText = styled.span`
-  display: block;
-  color: #000;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-bottom: 4px;
+  color: black;
+  font-size: ${M};
+  font-weight: normal;
+`
+const BadgeContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 4px;
+  align-self: stretch;
+  flex-wrap: wrap;
 `
 const TagBadge = styled.span`
-  display: inline-block;
-  padding: 0.1rem 0.5rem;
-  border-radius: 1.5rem;
-  border: solid 0.2px ${secondaryLight};
-  text-align: center;
-  vertical-align: middle;
-  color: ${secondaryLight};
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  margin-right: 4px;
+  display: flex;
+  font-size: ${XS};
+  font-weight: semi-bold;
+  padding: 6px 8px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px;
+  opacity: 0.8;
+  background: ${props => props.platform==1? secondary : primary};
+  color: ${white};
 `
 
 const CardItem = (props) => {
@@ -80,11 +90,16 @@ const CardItem = (props) => {
         {props.comment}</Back>
       <TextContainer>
         <TitleText>{props.title}</TitleText>
+        <BadgeContainer>
         {props.taglist && 
           props.taglist.map((t, index) =>(
-            <TagBadge key={index}>{t}</TagBadge>
+            t.slice(-2)=="게임"? 
+            <TagBadge key={index} platform={1}>{t}</TagBadge>
+            :<TagBadge key={index}>{t}</TagBadge>
           ))
         }
+        </BadgeContainer>
+
       </TextContainer>
       
     </Container>
